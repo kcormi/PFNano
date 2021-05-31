@@ -157,9 +157,13 @@ def main():
         config.Data.outputDatasetTag = re.sub(r'MiniAOD[v]?[0-9]?', options.extension, cond) if cond.startswith('RunII') else cond+'_'+options.extension
         print(config.Data.outputDatasetTag)
         config.Data.outLFNDirBase = options.out 
-        if datatier == 'MINIAODSIM':
+        if datatier == 'MINIAODSIM': 
         #   config.Data.splitting = 'FileBased'
         #   config.Data.unitsPerJob = 10
+            config.Data.splitting = 'Automatic'
+        elif datatier == 'USER':#assume USER data is also MINIAODSIM, but need to point to user db
+            config.Data.inputDBS = 'phys03'
+            config.Site.whitelist = ['T2_CH_*','T3_CH_*']
             config.Data.splitting = 'Automatic'
         elif datatier == 'MINIAOD':
           config.Data.splitting = 'LumiBased'
